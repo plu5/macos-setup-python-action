@@ -1,0 +1,33 @@
+name: 'Run Script in Workflows Dir'
+author: 'plu5'
+description: >-
+  This GitHub action downloads and installs a given version of Python backwards-compatible to macOS 10.9
+inputs:
+  version:
+    description: 'Python version in the format x.x.x, e.g. 3.7.4'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Python download
+      id: cache-python-download
+      uses: actions/cache@v2
+      with:
+        path: ~/python.pkg
+        key: macOS-Python-${{ inputs.version }}
+
+    - name: Get Python
+      env:
+        VERSION: ${{ inputs.version }}
+      if: steps.cache-python-download.outputs.cache-hit != 'true'
+      run: curl https://www.python.org/ftp/python/${VERSION}/python-${VERSION}-macosx10.9.pkg -o ~/python.pkg
+      shell: bash
+
+    - name: Install Python
+      run: sudo installer -pkg ~/python.pkg -target /Applications
+      shell: bash
+
+branding:
+  color: 'yellow'
+  icon: 'truck'
