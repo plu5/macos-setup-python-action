@@ -12,7 +12,7 @@ runs:
   steps:
     - name: Cache Python download
       id: cache-python-download
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/python.pkg
         key: macOS-Python-${{ inputs.version }}
