@@ -1,4 +1,4 @@
-name: 'Run Script in Workflows Dir'
+name: 'macOS Setup Python'
 author: 'plu5'
 description: >-
   This GitHub action downloads and installs a given version of Python backwards-compatible to macOS 10.9
